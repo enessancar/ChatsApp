@@ -9,6 +9,8 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    private var viewModel = LoginViewModel()
+    
     //MARK: - Properties
     private let logoImage: UIImageView = {
         let imageView = UIImageView()
@@ -59,9 +61,31 @@ class LoginViewController: UIViewController {
     }
 }
 
+//MARK: - Selector
+extension LoginViewController {
+    @objc private func handleTextFieldChange(_ sender: UITextField) {
+        if sender == emailTextField {
+            viewModel.emailTextField = sender.text
+        } else {
+            viewModel.passwordTextField = sender.text
+        }
+        loginButtonStatus()
+    }
+}
+
 //MARK: - Helpers
 
 extension LoginViewController {
+    
+    private func loginButtonStatus() {
+        if viewModel.status {
+            loginButton.isEnabled = true
+            loginButton.backgroundColor = .blue
+        } else {
+            loginButton.isEnabled = false
+            loginButton.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        }
+    }
     
     private func style() {
         self.navigationController?.navigationBar.isHidden = true
@@ -75,6 +99,8 @@ extension LoginViewController {
         stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
+        emailTextField.addTarget(self, action: #selector(handleTextFieldChange), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(handleTextFieldChange), for: .editingChanged)
     }
     
     private func layout() {

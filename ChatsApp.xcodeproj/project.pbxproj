@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		ECC5F295297C2D7D003E3C05 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5F294297C2D7D003E3C05 /* CustomTextField.swift */; };
 		ECC5F297297C33C3003E3C05 /* AuthenticationInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5F296297C33C3003E3C05 /* AuthenticationInputView.swift */; };
+		ECC5F299297D5018003E3C05 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5F298297D5018003E3C05 /* LoginViewModel.swift */; };
 		ECFE1905296ED0700012D1B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFE1904296ED0700012D1B8 /* AppDelegate.swift */; };
 		ECFE1907296ED0700012D1B8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFE1906296ED0700012D1B8 /* SceneDelegate.swift */; };
 		ECFE1909296ED0700012D1B8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFE1908296ED0700012D1B8 /* LoginViewController.swift */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		ECC5F294297C2D7D003E3C05 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		ECC5F296297C33C3003E3C05 /* AuthenticationInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationInputView.swift; sourceTree = "<group>"; };
+		ECC5F298297D5018003E3C05 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		ECFE1901296ED0700012D1B8 /* ChatsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECFE1904296ED0700012D1B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ECFE1906296ED0700012D1B8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 		ECFE191C296ED2510012D1B8 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				ECC5F298297D5018003E3C05 /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 				ECC5F297297C33C3003E3C05 /* AuthenticationInputView.swift in Sources */,
 				ECFE1920296EDF220012D1B8 /* Extension.swift in Sources */,
 				ECC5F295297C2D7D003E3C05 /* CustomTextField.swift in Sources */,
+				ECC5F299297D5018003E3C05 /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,6 +22,11 @@ class AuthenticationInputView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         addSubview(textField)
         
+        let dividerView = UIView()
+        dividerView.backgroundColor = .white
+        dividerView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(dividerView)
+        
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -30,11 +35,14 @@ class AuthenticationInputView: UIView {
             
             textField.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
             textField.leadingAnchor.constraint(equalTo: imageView.trailingAnchor,constant: 8),
-            textField .trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            textField .trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            
+            dividerView.heightAnchor.constraint(equalToConstant: 0.7),
+            dividerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            dividerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            dividerView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            
         ])
-        layer.borderColor = UIColor.white.cgColor
-        layer.borderWidth = 0.77
-        layer.cornerRadius = 10
     }
     
     required init?(coder: NSCoder) {
