@@ -52,6 +52,14 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    private lazy var  switchToRegistrationPage: UIButton = {
+        let button = UIButton(type: .system)
+        let attirubedTitle = NSMutableAttributedString(string: "Click to become a member", attributes: [.foregroundColor: UIColor.white, .font: UIFont.boldSystemFont(ofSize: 14)])
+        button.setAttributedTitle(attirubedTitle, for: .normal)
+        button.addTarget(self, action: #selector(handleGoToRegisterView), for: .touchUpInside)
+        return button
+    }()
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +79,11 @@ extension LoginViewController {
         }
         loginButtonStatus()
     }
+    
+    @objc private func handleGoToRegisterView(_ sender: UIButton) {
+        let controller = RegisterViewController()
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
 }
 
 //MARK: - Helpers
@@ -80,7 +93,7 @@ extension LoginViewController {
     private func loginButtonStatus() {
         if viewModel.status {
             loginButton.isEnabled = true
-            loginButton.backgroundColor = .blue
+            loginButton.backgroundColor = .systemBlue
         } else {
             loginButton.isEnabled = false
             loginButton.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
@@ -101,12 +114,16 @@ extension LoginViewController {
         
         emailTextField.addTarget(self, action: #selector(handleTextFieldChange), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(handleTextFieldChange), for: .editingChanged)
+        
+        switchToRegistrationPage.translatesAutoresizingMaskIntoConstraints = false
+        
     }
     
     private func layout() {
         
         view.addSubview(logoImage)
         view.addSubview(stackView)
+        view.addSubview(switchToRegistrationPage)
         
         NSLayoutConstraint.activate([
             logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -117,7 +134,11 @@ extension LoginViewController {
             stackView.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 32),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-            emailContainerView.heightAnchor.constraint(equalToConstant: 50)
+            emailContainerView.heightAnchor.constraint(equalToConstant: 50),
+            
+            
+            switchToRegistrationPage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            switchToRegistrationPage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80)
         ])
     }
 }

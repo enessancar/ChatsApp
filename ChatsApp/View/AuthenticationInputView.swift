@@ -8,6 +8,7 @@
 import UIKit
 
 class AuthenticationInputView: UIView {
+    
     init(image: UIImage, textField: UITextField) {
         super.init(frame: .zero)
         
@@ -41,7 +42,6 @@ class AuthenticationInputView: UIView {
             dividerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             dividerView.bottomAnchor.constraint(equalTo: bottomAnchor),
             dividerView.trailingAnchor.constraint(equalTo: trailingAnchor)
-            
         ])
     }
     
