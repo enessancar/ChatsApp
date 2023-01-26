@@ -52,7 +52,7 @@ class LoginViewController: UIViewController {
         return button
     }()
     
-    private lazy var  switchToRegistrationPage: UIButton = {
+    private lazy var switchToRegistrationPage: UIButton = {
         let button = UIButton(type: .system)
         let attirubedTitle = NSMutableAttributedString(string: "Click to become a member", attributes: [.foregroundColor: UIColor.white, .font: UIFont.boldSystemFont(ofSize: 14)])
         button.setAttributedTitle(attirubedTitle, for: .normal)
@@ -136,9 +136,8 @@ extension LoginViewController {
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
             emailContainerView.heightAnchor.constraint(equalToConstant: 50),
             
-            
-            switchToRegistrationPage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            switchToRegistrationPage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80)
+            switchToRegistrationPage.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            switchToRegistrationPage.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 40)
         ])
     }
 }

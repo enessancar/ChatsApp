@@ -6,16 +6,23 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
+import FirebaseStorage
 
 class RegisterViewController: UIViewController {
     
     //MARK: - Properties
+    private var viewModel = RegisterViewModel()
+    private var profileImageToUpload: UIImage?
+    
     private lazy var addCameraButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
         button.setImage(UIImage(systemName: "camera.circle"), for: .normal)
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
+        button.addTarget(self, action: #selector(handlePhoto), for: .touchUpInside)
         return button
     }()
     
@@ -57,7 +64,16 @@ class RegisterViewController: UIViewController {
         button.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         button.isEnabled = false
         button.layer.cornerRadius = 8
-        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title2)
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title3 )
+        button.addTarget(self, action: #selector(handleRegisterButton), for: .touchUpInside )
+        return button
+    }()
+    
+    private lazy var switchToLoginPage: UIButton = {
+        let button = UIButton(type: .system)
+        let attributedTitle = NSAttributedString(string: "If you are a member, Login Page", attributes: [.foregroundColor: UIColor.white, .font: UIFont.boldSystemFont(ofSize: 14)])
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        button.addTarget(self, action: #selector(handleToLoginView), for: .touchUpInside)
         return button
     }()
     
@@ -69,8 +85,90 @@ class RegisterViewController: UIViewController {
     }
 }
 
+//MARK: - Selector
+extension RegisterViewController {
+    
+    @objc private func handleRegisterButton(_ sender: UIButton) {
+        guard let emailText = emailTextField.text else {return}
+        guard let nameText = nameTextField.text else {return}
+        guard let userNameText = usernameTextField.text else {return}
+        guard let passwordText = passwordTextField.text else {return}
+        guard let profileImage = profileImageToUpload else {return}
+        
+        let photoName = UUID().uuidString
+        guard let profileData = profileImage.jpegData(compressionQuality: 0.5) else { return }
+        let referance = Storage.storage().reference(withPath: "media/profile_image/\(photoName).png")
+        referance.putData(profileData) { storageMeta, error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            referance.downloadURL { url , error in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+                guard let profileImageUrl = url?.absoluteString else {return}
+                
+                Auth.auth().createUser(withEmail: emailText, password: passwordText) { result, error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }
+                    guard let userUid = result?.user.uid else { return }
+                    let data = [
+                        "email": emailText,
+                        "name": nameText,
+                        "userName:": userNameText,
+                        "profileImageUrl": profileImageUrl,
+                        "uuid": userUid,
+                        
+                    ] as [String: Any ]
+                    Firestore.firestore().collection("users").document(userUid).setData(data) { error in
+                        if error != nil {
+                            self.makeAlert(let: "ERROR", let: "Your information could not be saved")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc private func handleTextFieldChange(_ sender: UITextField) {
+        if sender == emailTextField {
+            viewModel.email = sender.text
+        } else if sender == nameTextField {
+            viewModel.name = sender.text
+        } else if sender == usernameTextField {
+            viewModel.userName = sender.text
+        } else {
+            viewModel.password = sender.text
+        }
+        registerButtonStatus()
+    }
+    
+    @objc private func handleToLoginView(_ sender: UIButton) {
+        let controller = LoginViewController()
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @objc private func handlePhoto(_ sender: UIButton) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        self.present(imagePicker, animated: true)
+    }
+}
+
 //MARK: - Helpers
 extension RegisterViewController {
+    
+    private func registerButtonStatus () {
+        if viewModel.status {
+            registerButton.isEnabled = true
+            registerButton.backgroundColor = .systemBlue
+        } else {
+            registerButton.isEnabled = false
+            registerButton.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        }
+    }
     
     private func style() {
         configureGradientLayer()
@@ -83,11 +181,19 @@ extension RegisterViewController {
         stackView.spacing = 14
         stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        emailTextField.addTarget(self, action: #selector(handleTextFieldChange), for: .editingChanged)
+        nameTextField.addTarget(self, action: #selector(handleTextFieldChange), for: .editingChanged)
+        usernameTextField.addTarget(self, action: #selector(handleTextFieldChange), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(handleTextFieldChange), for: .editingChanged)
+        
+        switchToLoginPage.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func layout() {
         view.addSubview(addCameraButton)
         view.addSubview(stackView)
+        view.addSubview(switchToLoginPage)
         
         NSLayoutConstraint.activate([
             addCameraButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -98,9 +204,29 @@ extension RegisterViewController {
             stackView.topAnchor.constraint(equalTo: addCameraButton.bottomAnchor, constant: 32),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-            emailContainerView.heightAnchor.constraint(equalToConstant: 50)
+            emailContainerView.heightAnchor.constraint(equalToConstant: 50),
             // birine vermek yetiyo çünkü stack viewde otomatik eşit mesafe verdik
+            
+            switchToLoginPage.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            switchToLoginPage.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20)
         ])
     }
-    
+}
+
+//MARK: - UIIMagePickerController
+extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[.originalImage] as? UIImage else {
+            return
+        }
+        self.profileImageToUpload = image
+        
+        addCameraButton.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
+        addCameraButton.layer.cornerRadius = 150 / 2
+        addCameraButton.clipsToBounds = true
+        addCameraButton.layer.borderColor = UIColor.white.cgColor
+        addCameraButton.layer.borderWidth = 2
+        addCameraButton.contentMode = .scaleAspectFill
+        dismiss(animated: true)
+    }
 }
