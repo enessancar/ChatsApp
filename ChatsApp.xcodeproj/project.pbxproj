@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		EC3D1AC229817E130086C686 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D1AC129817E130086C686 /* Alert.swift */; };
 		EC3D1AC52981BEC50086C686 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D1AC42981BEC50086C686 /* RegisterViewModel.swift */; };
+		EC3D1AC72982F5440086C686 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D1AC62982F5440086C686 /* AuthenticationService.swift */; };
+		EC3D1AC9298313F20086C686 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D1AC8298313F20086C686 /* HomeViewController.swift */; };
 		ECBC393E297D85310074D08C /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBC393D297D85310074D08C /* RegisterViewController.swift */; };
 		ECBC3940297DB2800074D08C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECBC393F297DB2800074D08C /* GoogleService-Info.plist */; };
 		ECBC3943297DB5300074D08C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ECBC3942297DB5300074D08C /* FirebaseAuth */; };
@@ -28,6 +30,8 @@
 /* Begin PBXFileReference section */
 		EC3D1AC129817E130086C686 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		EC3D1AC42981BEC50086C686 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		EC3D1AC62982F5440086C686 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		EC3D1AC8298313F20086C686 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		ECBC393D297D85310074D08C /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		ECBC393F297DB2800074D08C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ECC5F294297C2D7D003E3C05 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 			children = (
 				ECFE1908296ED0700012D1B8 /* LoginViewController.swift */,
 				ECBC393D297D85310074D08C /* RegisterViewController.swift */,
+				EC3D1AC8298313F20086C686 /* HomeViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -138,6 +143,7 @@
 		ECFE191D296ED27B0012D1B8 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				EC3D1AC62982F5440086C686 /* AuthenticationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -233,12 +239,14 @@
 				EC3D1AC52981BEC50086C686 /* RegisterViewModel.swift in Sources */,
 				ECFE1909296ED0700012D1B8 /* LoginViewController.swift in Sources */,
 				ECFE1905296ED0700012D1B8 /* AppDelegate.swift in Sources */,
+				EC3D1AC72982F5440086C686 /* AuthenticationService.swift in Sources */,
 				ECFE1907296ED0700012D1B8 /* SceneDelegate.swift in Sources */,
 				ECBC393E297D85310074D08C /* RegisterViewController.swift in Sources */,
 				ECC5F297297C33C3003E3C05 /* AuthenticationInputView.swift in Sources */,
 				ECFE1920296EDF220012D1B8 /* Extension.swift in Sources */,
 				ECC5F295297C2D7D003E3C05 /* CustomTextField.swift in Sources */,
 				ECC5F299297D5018003E3C05 /* LoginViewModel.swift in Sources */,
+				EC3D1AC9298313F20086C686 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

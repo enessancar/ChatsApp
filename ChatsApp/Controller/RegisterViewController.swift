@@ -95,39 +95,13 @@ extension RegisterViewController {
         guard let passwordText = passwordTextField.text else {return}
         guard let profileImage = profileImageToUpload else {return}
         
-        let photoName = UUID().uuidString
-        guard let profileData = profileImage.jpegData(compressionQuality: 0.5) else { return }
-        let referance = Storage.storage().reference(withPath: "media/profile_image/\(photoName).png")
-        referance.putData(profileData) { storageMeta, error in
-            if let error = error {
-                print(error.localizedDescription)
+        let user = AuthenticationServiceUser(emailText: emailText, passwordText: passwordText, nameText: nameText, userNameText: userNameText)
+        AuthenticationService.register(withUser: user, image: profileImage) { error in
+            if let error = error{
+                print("Error: \(error.localizedDescription)")
+                return
             }
-            referance.downloadURL { url , error in
-                if let error = error {
-                    print(error.localizedDescription)
-                }
-                guard let profileImageUrl = url?.absoluteString else {return}
-                
-                Auth.auth().createUser(withEmail: emailText, password: passwordText) { result, error in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    }
-                    guard let userUid = result?.user.uid else { return }
-                    let data = [
-                        "email": emailText,
-                        "name": nameText,
-                        "userName:": userNameText,
-                        "profileImageUrl": profileImageUrl,
-                        "uuid": userUid,
-                        
-                    ] as [String: Any ]
-                    Firestore.firestore().collection("users").document(userUid).setData(data) { error in
-                        if error != nil {
-                            self.makeAlert(let: "ERROR", let: "Your information could not be saved")
-                        }
-                    }
-                }
-            }
+            self.dismiss(animated: true) // başarılı ise register ekranını aşşağı indir
         }
     }
     
