@@ -105,7 +105,8 @@ extension RegisterViewController {
                 return
             }
             self.showProgressHud(showProgress: false)
-            self.dismiss(animated: true) // başarılı ise register ekranını aşşağı indir
+            self.dismiss(animated: true)
+            // başarılı ise register ekranını aşşağı indir
         }
     }
     
@@ -153,7 +154,7 @@ extension RegisterViewController {
     }
     
     @objc private func handleWillHideNotification() {
-        self.view.frame.origin.y = 0 
+        self.view.frame.origin.y = 0
     }
     
     private func configureSetupKeyboard() {
