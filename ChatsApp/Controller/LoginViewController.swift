@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class LoginViewController: UIViewController {
     
@@ -27,12 +28,12 @@ class LoginViewController: UIViewController {
         return containerView
     }()
     
-    private let emailTextField = CustomTextField(placeHolder: "Email")
-    
     private lazy var passwordContainerView: AuthenticationInputView = {
         let containerView = AuthenticationInputView(image: UIImage(systemName: "lock")!, textField: passwordTextField)
         return containerView
     }()
+    
+    private let emailTextField = CustomTextField(placeHolder: "Email")
     private let passwordTextField: CustomTextField = {
         let textField = CustomTextField(placeHolder: "Password")
         textField.isSecureTextEntry = true
@@ -41,7 +42,7 @@ class LoginViewController: UIViewController {
     
     private var stackView =  UIStackView()
     
-    private let loginButton: UIButton = {
+    private lazy var loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Log In", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -49,6 +50,7 @@ class LoginViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.isEnabled = false
+        button.addTarget(self, action: #selector(handleLoginButton), for: .touchUpInside)
         return button
     }()
     
@@ -71,6 +73,21 @@ class LoginViewController: UIViewController {
 
 //MARK: - Selector
 extension LoginViewController {
+    
+    @objc private func handleLoginButton(_ sender: UIButton) {
+        guard let emailText = emailTextField.text, let passwordText = passwordTextField.text else { return }
+        showProgressHud(showProgress: true)
+        AuthenticationService.login(withEmail: emailText, withPassword: passwordText) { result, error in
+            if error != nil {
+                self.makeAlert(title: "ERROR", message: "Login operation failed")
+                self.showProgressHud(showProgress: false) // gerek kalmadı başarısız giremeyecek
+                return
+            }
+            self.showProgressHud(showProgress: false)
+            self.dismiss(animated: true)
+        }
+    }
+    
     @objc private func handleTextFieldChange(_ sender: UITextField) {
         if sender == emailTextField {
             viewModel.emailTextField = sender.text

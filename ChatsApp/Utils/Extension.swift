@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 extension UIViewController {
     func configureGradientLayer() {
@@ -22,4 +23,11 @@ extension UIViewController {
         gradient.frame = view.bounds
         view.layer.addSublayer(gradient)
     }
+
+    func showProgressHud(showProgress: Bool) {
+        let progressHud = JGProgressHUD(style: .dark)
+        progressHud.textLabel.text = "Please wait"
+        showProgress ? progressHud.show(in: view): progressHud.dismiss(animated: true)
+    }
 }
+

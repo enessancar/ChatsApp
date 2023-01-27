@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        authenticationStatus()
+        signOut()
         style()
         layout()
     }
@@ -38,6 +38,7 @@ extension HomeViewController {
     private func signOut() {
         do {
             try Auth.auth().signOut()
+            authenticationStatus()
         } catch {
         }
     }

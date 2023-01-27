@@ -9,6 +9,7 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 import FirebaseStorage
+import JGProgressHUD
 
 class RegisterViewController: UIViewController {
     
@@ -96,11 +97,14 @@ extension RegisterViewController {
         guard let profileImage = profileImageToUpload else {return}
         
         let user = AuthenticationServiceUser(emailText: emailText, passwordText: passwordText, nameText: nameText, userNameText: userNameText)
+        self.showProgressHud(showProgress: true)
         AuthenticationService.register(withUser: user, image: profileImage) { error in
             if let error = error{
                 print("Error: \(error.localizedDescription)")
+                self.showProgressHud(showProgress: false)
                 return
             }
+            self.showProgressHud(showProgress: false)
             self.dismiss(animated: true) // başarılı ise register ekranını aşşağı indir
         }
     }
