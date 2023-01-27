@@ -148,6 +148,21 @@ extension RegisterViewController {
         }
     }
     
+    @objc private func handleWillShowNotification() {
+        self.view.frame.origin.y = -110
+    }
+    
+    @objc private func handleWillHideNotification() {
+        self.view.frame.origin.y = 0 
+    }
+    
+    private func configureSetupKeyboard() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWillShowNotification), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWillHideNotification), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
     private func style() {
         configureGradientLayer()
         self.navigationController?.navigationBar.isHidden = true
