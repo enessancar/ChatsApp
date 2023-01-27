@@ -13,7 +13,8 @@ class HomeViewController: UIViewController {
     //MARK: - Properties
     private var messageButton: UIBarButtonItem!
     private var newMessageButton: UIBarButtonItem!
-    private var container = Container()
+    private var container = ContainerViewController()
+    private let viewControllers: [UIViewController] = [MessageViewController(), NewMessageViewController()]
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -87,16 +88,14 @@ extension HomeViewController {
 extension HomeViewController {
     
     @objc private func handleMessageButton() {
-        
+        if self.container.children.first == MessageViewController() { return }
+        self.container.add(viewControllers[0])
+        viewControllers[1].remove()
     }
     
     @objc private func handleNewMessageButton() {
-        
-    }
-}
-
-class Container: UIViewController {
-    override func viewDidLoad() {
-        view.backgroundColor = .systemPink
+        if self.container.children.first == NewMessageViewController() { return }
+        self.container.add(viewControllers[1])
+        viewControllers[0].remove()
     }
 }
