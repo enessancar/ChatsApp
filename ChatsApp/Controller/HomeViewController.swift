@@ -32,7 +32,7 @@ extension HomeViewController {
         let button = UIButton(type: .system)
         button.setTitle(text, for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 22)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 25)
         button.addTarget(self, action: selector, for: .touchUpInside)
         return button
     }
@@ -65,6 +65,7 @@ extension HomeViewController {
         
         // Container
         configureContainer()
+        handleMessageButton() // ilk açtığımızda message ekranı gelsin 
     }
     
     private func layout() {
@@ -89,12 +90,16 @@ extension HomeViewController {
     
     @objc private func handleMessageButton() {
         if self.container.children.first == MessageViewController() { return }
-        self.container.add(viewControllers[0])
+        self.messageButton.customView?.alpha = 1
+        self.newMessageButton.customView?.alpha = 0.5
+        self.container.add( viewControllers[0])
         viewControllers[1].remove()
     }
     
     @objc private func handleNewMessageButton() {
         if self.container.children.first == NewMessageViewController() { return }
+        self.messageButton.customView?.alpha = 0.5
+        self.newMessageButton.customView?.alpha = 1 
         self.container.add(viewControllers[1])
         viewControllers[0].remove()
     }

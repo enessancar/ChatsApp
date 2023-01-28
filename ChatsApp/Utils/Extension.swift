@@ -27,7 +27,11 @@ extension UIViewController {
     func showProgressHud(showProgress: Bool) {
         let progressHud = JGProgressHUD(style: .dark)
         progressHud.textLabel.text = "Please wait"
-        showProgress ? progressHud.show(in: view): progressHud.dismiss(animated: true)
+        if showProgress {
+            progressHud.show(in: view)
+        }
+        progressHud.dismiss(afterDelay: 3)
+        progressHud.dismiss(animated: true)
     }
     
     func add(_ child: UIViewController) {

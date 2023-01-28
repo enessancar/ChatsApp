@@ -106,7 +106,6 @@ extension RegisterViewController {
             }
             self.showProgressHud(showProgress: false)
             self.dismiss(animated: true)
-            // başarılı ise register ekranını aşşağı indir
         }
     }
     
