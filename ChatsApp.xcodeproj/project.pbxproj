@@ -18,6 +18,9 @@
 		EC3D1AD5298512AA0086C686 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D1AD4298512A90086C686 /* UserCell.swift */; };
 		EC3D1AD72985A1470086C686 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D1AD62985A1470086C686 /* User.swift */; };
 		EC3D1AD92985ABA20086C686 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D1AD82985ABA20086C686 /* Service.swift */; };
+		EC3D1ADC2985C7E00086C686 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = EC3D1ADB2985C7E00086C686 /* SDWebImage */; };
+		EC3D1ADE2986B6B00086C686 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D1ADD2986B6B00086C686 /* ChatViewController.swift */; };
+		EC3D1AE029870FD60086C686 /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D1ADF29870FD60086C686 /* ChatInputView.swift */; };
 		ECBC393E297D85310074D08C /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBC393D297D85310074D08C /* RegisterViewController.swift */; };
 		ECBC3940297DB2800074D08C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECBC393F297DB2800074D08C /* GoogleService-Info.plist */; };
 		ECBC3943297DB5300074D08C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ECBC3942297DB5300074D08C /* FirebaseAuth */; };
@@ -45,6 +48,8 @@
 		EC3D1AD4298512A90086C686 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		EC3D1AD62985A1470086C686 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EC3D1AD82985ABA20086C686 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		EC3D1ADD2986B6B00086C686 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		EC3D1ADF29870FD60086C686 /* ChatInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputView.swift; sourceTree = "<group>"; };
 		ECBC393D297D85310074D08C /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		ECBC393F297DB2800074D08C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ECC5F294297C2D7D003E3C05 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -69,6 +74,7 @@
 				ECBC3943297DB5300074D08C /* FirebaseAuth in Frameworks */,
 				ECBC3945297DB5300074D08C /* FirebaseFirestore in Frameworks */,
 				ECBC3947297DB5300074D08C /* FirebaseStorage in Frameworks */,
+				EC3D1ADC2985C7E00086C686 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +133,7 @@
 				EC3D1ACE298466280086C686 /* ContainerViewController.swift */,
 				EC3D1AD0298466690086C686 /* MessageViewController.swift */,
 				EC3D1AD22984669B0086C686 /* NewMessageViewController.swift */,
+				EC3D1ADD2986B6B00086C686 /* ChatViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -137,6 +144,7 @@
 				ECC5F294297C2D7D003E3C05 /* CustomTextField.swift */,
 				ECC5F296297C33C3003E3C05 /* AuthenticationInputView.swift */,
 				EC3D1AD4298512A90086C686 /* UserCell.swift */,
+				EC3D1ADF29870FD60086C686 /* ChatInputView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -197,6 +205,7 @@
 				ECBC3944297DB5300074D08C /* FirebaseFirestore */,
 				ECBC3946297DB5300074D08C /* FirebaseStorage */,
 				EC3D1ACB2983D3C10086C686 /* JGProgressHUD */,
+				EC3D1ADB2985C7E00086C686 /* SDWebImage */,
 			);
 			productName = ChatsApp;
 			productReference = ECFE1901296ED0700012D1B8 /* ChatsApp.app */;
@@ -229,6 +238,7 @@
 			packageReferences = (
 				ECBC3941297DB5300074D08C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				EC3D1ACA2983D3C10086C686 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				EC3D1ADA2985C7E00086C686 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = ECFE1902296ED0700012D1B8 /* Products */;
 			projectDirPath = "";
@@ -258,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC3D1AC229817E130086C686 /* Alert.swift in Sources */,
+				EC3D1AE029870FD60086C686 /* ChatInputView.swift in Sources */,
 				EC3D1AC52981BEC50086C686 /* RegisterViewModel.swift in Sources */,
 				EC3D1ACF298466280086C686 /* ContainerViewController.swift in Sources */,
 				ECFE1909296ED0700012D1B8 /* LoginViewController.swift in Sources */,
@@ -268,6 +279,7 @@
 				EC3D1AD72985A1470086C686 /* User.swift in Sources */,
 				EC3D1AD32984669B0086C686 /* NewMessageViewController.swift in Sources */,
 				EC3D1AD5298512AA0086C686 /* UserCell.swift in Sources */,
+				EC3D1ADE2986B6B00086C686 /* ChatViewController.swift in Sources */,
 				ECFE1907296ED0700012D1B8 /* SceneDelegate.swift in Sources */,
 				ECBC393E297D85310074D08C /* RegisterViewController.swift in Sources */,
 				ECC5F297297C33C3003E3C05 /* AuthenticationInputView.swift in Sources */,
@@ -492,6 +504,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		EC3D1ADA2985C7E00086C686 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		ECBC3941297DB5300074D08C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -507,6 +527,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EC3D1ACA2983D3C10086C686 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
 			productName = JGProgressHUD;
+		};
+		EC3D1ADB2985C7E00086C686 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EC3D1ADA2985C7E00086C686 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 		ECBC3942297DB5300074D08C /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

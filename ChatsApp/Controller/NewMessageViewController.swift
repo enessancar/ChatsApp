@@ -7,15 +7,31 @@
 
 import UIKit
 
+protocol NewMessageViewControllerProtocol: AnyObject {
+    func goToChatView(user: User)
+}
+
 class NewMessageViewController: UIViewController {
 
     //MARK: - Properties
-    private let tableView = UITableView()
+    weak var delegate: NewMessageViewControllerProtocol?
     private let reuseIdentifer = "UserCell"
+    private let tableView = UITableView()
+    private var users = [User]()
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        style()
+        layout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Service.fetchUsers { users in
+            self.users = users
+            self.tableView.reloadData()
+        }
     }
 }
 
@@ -46,10 +62,15 @@ extension NewMessageViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifer, for: indexPath) as! UserCell
+        cell.user = users[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return users.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.delegate?.goToChatView(user: users[indexPath.row])
     }
 }

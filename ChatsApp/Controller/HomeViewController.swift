@@ -9,12 +9,13 @@ import UIKit
 import FirebaseAuth
 
 class HomeViewController: UIViewController {
-
+ 
     //MARK: - Properties
     private var messageButton: UIBarButtonItem!
     private var newMessageButton: UIBarButtonItem!
     private var container = ContainerViewController()
-    private let viewControllers: [UIViewController] = [MessageViewController(), NewMessageViewController()]
+    private let messageViewController = NewMessageViewController()
+    private lazy var viewControllers: [UIViewController] = [MessageViewController(), messageViewController]
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -22,6 +23,11 @@ class HomeViewController: UIViewController {
         authenticationStatus ()
         style()
         layout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        handleMessageButton()
     }
 }
 
@@ -62,6 +68,7 @@ extension HomeViewController {
         newMessageButton = UIBarButtonItem(customView: configureBarItem(text: "New Message", selector: #selector(handleNewMessageButton)))
         
         self.navigationItem.leftBarButtonItems = [messageButton, newMessageButton]
+        self.messageViewController.delegate = self
         
         // Container
         configureContainer()
@@ -102,5 +109,13 @@ extension HomeViewController {
         self.newMessageButton.customView?.alpha = 1 
         self.container.add(viewControllers[1])
         viewControllers[0].remove()
+    }
+}
+
+extension HomeViewController: NewMessageViewControllerProtocol {
+    
+    func goToChatView(user: User) {
+        let controller = ChatViewController(user: user)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
