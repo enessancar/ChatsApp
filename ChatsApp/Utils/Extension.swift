@@ -23,7 +23,7 @@ extension UIViewController {
         gradient.frame = view.bounds
         view.layer.addSublayer(gradient)
     }
-
+    
     func showProgressHud(showProgress: Bool) {
         let progressHud = JGProgressHUD(style: .dark)
         progressHud.textLabel.text = "Please wait"
@@ -47,3 +47,19 @@ extension UIViewController {
     }
 }
 
+extension UIView {
+    func configureGradientLayer() {
+        lazy var gradient: CAGradientLayer = {
+            let gradient = CAGradientLayer()
+            gradient.type = .axial
+            gradient.colors = [
+                UIColor.systemBlue.cgColor,
+                UIColor.systemPink.cgColor,
+            ]
+            gradient.locations = [0,1]
+            return gradient
+        }()
+        gradient.frame = bounds
+        layer.addSublayer(gradient)
+    }
+}
