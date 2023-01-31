@@ -89,6 +89,10 @@ extension  ChatInputView {
             placeHolderLabel.trailingAnchor.constraint(equalTo: textInputView.trailingAnchor)
         ])
     }
+    func clear() {
+        textInputView.text = nil
+        placeHolderLabel.isHidden = false
+    }
 }
 
 //MARK: - Selector

@@ -86,6 +86,7 @@ extension ChatViewController: ChatInputViewProtocol {
                 return
             }
         }
+        chatInputView.clear()
     }
 }
 
