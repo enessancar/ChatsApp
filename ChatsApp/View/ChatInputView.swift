@@ -7,20 +7,27 @@
 
 import UIKit
 
+protocol ChatInputViewProtocol: AnyObject {
+    func sendMessage(_ chatInputView: ChatInputView, message: String)
+}
+
 class ChatInputView: UIView {
     
     //MARK: - Properties
+    weak var delegate: ChatInputViewProtocol?
+    
     private let textInputView: UITextView = {
         let textView = UITextView()
-        textView.font = .preferredFont(forTextStyle: .title2)
+        textView.font = .preferredFont(forTextStyle: .title3)
         return textView
     }()
     
-    private let sendButton: UIButton = {
+    private lazy var sendButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Send", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .title2)
+        button.titleLabel?.font = .preferredFont(forTextStyle: .title3)
+        button.addTarget(self, action: #selector(handleSendButton), for: .touchUpInside)
         return button
     }()
     
@@ -88,5 +95,10 @@ extension  ChatInputView {
 extension ChatInputView {
     @objc private func handleTextInputView() {
         placeHolderLabel.isHidden = !textInputView.text.isEmpty
+    }
+    
+    @objc private func handleSendButton(_ sender: UIButton) {
+        guard let message = textInputView.text else { return }
+        self.delegate?.sendMessage(self, message: message)
     }
 }

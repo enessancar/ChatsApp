@@ -21,6 +21,7 @@
 		EC3D1ADC2985C7E00086C686 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = EC3D1ADB2985C7E00086C686 /* SDWebImage */; };
 		EC3D1ADE2986B6B00086C686 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D1ADD2986B6B00086C686 /* ChatViewController.swift */; };
 		EC3D1AE029870FD60086C686 /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D1ADF29870FD60086C686 /* ChatInputView.swift */; };
+		EC3D1AE229882EAB0086C686 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D1AE129882EAB0086C686 /* MessageCell.swift */; };
 		ECBC393E297D85310074D08C /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBC393D297D85310074D08C /* RegisterViewController.swift */; };
 		ECBC3940297DB2800074D08C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECBC393F297DB2800074D08C /* GoogleService-Info.plist */; };
 		ECBC3943297DB5300074D08C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ECBC3942297DB5300074D08C /* FirebaseAuth */; };
@@ -50,6 +51,7 @@
 		EC3D1AD82985ABA20086C686 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		EC3D1ADD2986B6B00086C686 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		EC3D1ADF29870FD60086C686 /* ChatInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputView.swift; sourceTree = "<group>"; };
+		EC3D1AE129882EAB0086C686 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		ECBC393D297D85310074D08C /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		ECBC393F297DB2800074D08C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ECC5F294297C2D7D003E3C05 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -106,22 +108,22 @@
 				ECFE191B296ED24A0012D1B8 /* Model */,
 				ECFE191A296ED2460012D1B8 /* View */,
 				ECFE1919296ED2340012D1B8 /* Controller */,
-				ECFE1918296ED0F10012D1B8 /* Files */,
+				ECFE1918296ED0F10012D1B8 /* SupportingFiles */,
 			);
 			path = ChatsApp;
 			sourceTree = "<group>";
 		};
-		ECFE1918296ED0F10012D1B8 /* Files */ = {
+		ECFE1918296ED0F10012D1B8 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				ECBC393F297DB2800074D08C /* GoogleService-Info.plist */,
-				ECFE1906296ED0700012D1B8 /* SceneDelegate.swift */,
 				ECFE1904296ED0700012D1B8 /* AppDelegate.swift */,
-				ECFE190F296ED0720012D1B8 /* LaunchScreen.storyboard */,
-				ECFE1912296ED0720012D1B8 /* Info.plist */,
 				ECFE190D296ED0720012D1B8 /* Assets.xcassets */,
+				ECBC393F297DB2800074D08C /* GoogleService-Info.plist */,
+				ECFE1912296ED0720012D1B8 /* Info.plist */,
+				ECFE190F296ED0720012D1B8 /* LaunchScreen.storyboard */,
+				ECFE1906296ED0700012D1B8 /* SceneDelegate.swift */,
 			);
-			path = Files;
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		ECFE1919296ED2340012D1B8 /* Controller */ = {
@@ -145,6 +147,7 @@
 				ECC5F296297C33C3003E3C05 /* AuthenticationInputView.swift */,
 				EC3D1AD4298512A90086C686 /* UserCell.swift */,
 				EC3D1ADF29870FD60086C686 /* ChatInputView.swift */,
+				EC3D1AE129882EAB0086C686 /* MessageCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				ECC5F295297C2D7D003E3C05 /* CustomTextField.swift in Sources */,
 				ECC5F299297D5018003E3C05 /* LoginViewModel.swift in Sources */,
 				EC3D1AC9298313F20086C686 /* HomeViewController.swift in Sources */,
+				EC3D1AE229882EAB0086C686 /* MessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,7 +431,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3KRQW7JR73;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ChatsApp/Files/Info.plist;
+				INFOPLIST_FILE = ChatsApp/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -454,7 +458,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3KRQW7JR73;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ChatsApp/Files/Info.plist;
+				INFOPLIST_FILE = ChatsApp/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
