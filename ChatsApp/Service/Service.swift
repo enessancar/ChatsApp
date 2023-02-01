@@ -36,7 +36,7 @@ struct Service {
         }
     }
     
-    func fetchMessages(user: User, completion: @escaping([Message]) -> Void) {
+    static func fetchMessages(user: User, completion: @escaping([Message]) -> Void) {
         var messages = [Message]()
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         

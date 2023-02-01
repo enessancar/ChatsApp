@@ -11,6 +11,7 @@ private let reuseIdentifier = "MessageCell"
 class ChatViewController: UICollectionViewController {
     
     //MARK: - Properties
+    var messages = [Message]()
     private lazy var chatInputView = ChatInputView(frame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.width * 0.2))
     private let user: User
     
@@ -26,6 +27,7 @@ class ChatViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchMessages()
         style()
         layout()
     }
@@ -39,6 +41,14 @@ class ChatViewController: UICollectionViewController {
     override var canBecomeFirstResponder: Bool {
         return true
     }
+    
+    //MARK: - Service
+    private func fetchMessages() {
+        Service.fetchMessages(user: user) { messages in
+            self.messages = messages
+            self.collectionView.reloadData()
+        }
+    }
 }
 
 //MARK: - Helpers
@@ -46,6 +56,7 @@ extension ChatViewController {
     private func style() {
         collectionView.register(MessageCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         chatInputView.delegate = self
+        self.navigationController?.navigationBar.tintColor = .white
     }
     
     private func layout() {
@@ -57,11 +68,13 @@ extension ChatViewController {
 extension ChatViewController {
  
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        return self.messages.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MessageCell
+        cell.message = messages[indexPath.row]
+        cell.message?.user = user
         return cell
     }
 }

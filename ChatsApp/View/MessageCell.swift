@@ -6,10 +6,22 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MessageCell: UICollectionViewCell {
     
     //MARK: - Properties
+    
+    // kullanıcının ve bizim attığımız mesajlar farklı taraflarda gözükmesi için
+    var messageContainerViewLeft: NSLayoutConstraint!
+    var messageContainerViewRight: NSLayoutConstraint!
+    
+    var message: Message?{
+        didSet {
+            configure()
+        }
+    }
+    
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
@@ -72,7 +84,6 @@ extension MessageCell {
             profileImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             
             messsageContainerView.topAnchor.constraint(equalTo: topAnchor, constant: 4),
-            messsageContainerView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 8),
             messsageContainerView.widthAnchor.constraint(lessThanOrEqualToConstant: 300),
             
             messageTextView.topAnchor.constraint(equalTo: messsageContainerView.topAnchor),
@@ -80,5 +91,27 @@ extension MessageCell {
             messageTextView.trailingAnchor.constraint(equalTo: messsageContainerView.trailingAnchor),
             messageTextView.bottomAnchor.constraint(equalTo: messsageContainerView.bottomAnchor)
         ])
+        self.messageContainerViewLeft = messsageContainerView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 8)
+        self.messageContainerViewLeft.isActive = false
+        
+        self.messageContainerViewRight = messsageContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+        self.messageContainerViewRight.isActive = false
+    }
+    private func configure() {
+        guard let message = self.message else { return }
+        let viewModel = MessageViewModel(message: message)
+        messageTextView.text = message.text
+        messsageContainerView.backgroundColor = viewModel.messageBackgroundColor
+        
+        messageContainerViewRight.isActive = viewModel.currentUserActive
+        messageContainerViewLeft.isActive = !viewModel.currentUserActive
+        profileImageView.isHidden = viewModel.currentUserActive // bensem profile image gözükmesin
+        profileImageView.sd_setImage(with: viewModel.profileImageView)
+        
+        if viewModel.currentUserActive {
+            messsageContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner]
+        } else {
+            messsageContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+        }
     }
 }
