@@ -121,11 +121,11 @@
 			isa = PBXGroup;
 			children = (
 				ECFE1904296ED0700012D1B8 /* AppDelegate.swift */,
+				ECFE1906296ED0700012D1B8 /* SceneDelegate.swift */,
 				ECFE190D296ED0720012D1B8 /* Assets.xcassets */,
 				ECBC393F297DB2800074D08C /* GoogleService-Info.plist */,
 				ECFE1912296ED0720012D1B8 /* Info.plist */,
 				ECFE190F296ED0720012D1B8 /* LaunchScreen.storyboard */,
-				ECFE1906296ED0700012D1B8 /* SceneDelegate.swift */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";

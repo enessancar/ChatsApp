@@ -47,6 +47,7 @@ class ChatViewController: UICollectionViewController {
         Service.fetchMessages(user: user) { messages in
             self.messages = messages
             self.collectionView.reloadData()
+            self.collectionView.scrollToItem(at: [0, messages.count - 1], at: .bottom, animated: true)
         }
     }
 }
@@ -57,6 +58,7 @@ extension ChatViewController {
         collectionView.register(MessageCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         chatInputView.delegate = self
         self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.title = user.userName
     }
     
     private func layout() {
@@ -86,7 +88,13 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width, height: 60)
+        
+        let fakeCell = MessageCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 50))
+        fakeCell.message = messages[indexPath.row]
+        fakeCell.layoutIfNeeded()
+        let target = CGSize(width: view.frame.width, height: 1000)
+        let fakeCellSize = fakeCell.systemLayoutSizeFitting(target)
+        return .init(width: view.frame.width, height: fakeCellSize.height) //ihtiyaç doğrultusunda ayar
     }
 }
 
