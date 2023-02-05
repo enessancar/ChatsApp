@@ -22,3 +22,8 @@ struct User {
         self.profileImageUrl = data["profileImageUrl"] as? String ?? ""
     }
 }
+
+struct LastUser {
+    let user: User
+    let message: Message
+}
