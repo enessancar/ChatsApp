@@ -34,7 +34,14 @@ struct Service {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         Firestore.firestore().collection("messages").document(uid).collection("last-messages").order(by: "timestamp").addSnapshotListener { snapshot, error in
-            <#code#>
+            snapshot?.documentChanges.forEach({ value in
+                let data = value.document.data()
+                let message = Message(data: data)
+                self.fetchUser(uid: message.toId) { user in
+                    lastUsers.append(LastUser(user: user, message: message))
+                    completion(lastUsers)
+                }
+            })
         }
         
     }
