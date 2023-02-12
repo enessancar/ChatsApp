@@ -14,8 +14,8 @@ import JGProgressHUD
 class RegisterViewController: UIViewController {
     
     //MARK: - Properties
-    private var viewModel = RegisterViewModel()
     private var profileImageToUpload: UIImage?
+    private var viewModel = RegisterViewModel()
     
     private lazy var addCameraButton: UIButton = {
         let button = UIButton(type: .system)
@@ -27,7 +27,7 @@ class RegisterViewController: UIViewController {
         return button
     }()
     
-    private lazy var emailContainerView: UIView = {
+    private lazy var emailContainerView: AuthenticationInputView = {
         let containerView = AuthenticationInputView(image: UIImage(systemName: "envelope")!, textField: emailTextField)
         return containerView
     }()
@@ -42,7 +42,7 @@ class RegisterViewController: UIViewController {
         return containerView
     }()
     
-    private lazy var passwordContainerView: UIView = {
+    private lazy var passwordContainerView: AuthenticationInputView = {
         let containerView = AuthenticationInputView(image: UIImage(systemName: "lock")!, textField: passwordTextField)
         return containerView
     }()
@@ -72,7 +72,7 @@ class RegisterViewController: UIViewController {
     
     private lazy var switchToLoginPage: UIButton = {
         let button = UIButton(type: .system)
-        let attributedTitle = NSAttributedString(string: "If you are a member, Login Page", attributes: [.foregroundColor: UIColor.white, .font: UIFont.boldSystemFont(ofSize: 14)])
+        let attributedTitle = NSMutableAttributedString(string: "If you are a member, Login Page", attributes: [.foregroundColor: UIColor.white, .font: UIFont.boldSystemFont(ofSize: 14)])
         button.setAttributedTitle(attributedTitle, for: .normal)
         button.addTarget(self, action: #selector(handleToLoginView), for: .touchUpInside)
         return button
@@ -123,8 +123,7 @@ extension RegisterViewController {
     }
     
     @objc private func handleToLoginView(_ sender: UIButton) {
-        let controller = LoginViewController()
-        navigationController?.pushViewController(controller, animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc private func handlePhoto(_ sender: UIButton) {
@@ -165,11 +164,13 @@ extension RegisterViewController {
     
     private func style() {
         configureGradientLayer()
+        configureSetupKeyboard()
+        
         self.navigationController?.navigationBar.isHidden = true
         
         addCameraButton.translatesAutoresizingMaskIntoConstraints = false
         
-        stackView = UIStackView(arrangedSubviews: [emailContainerView, nameContainerView, usernameContainerView, passwordContainerView,  registerButton])
+        stackView = UIStackView(arrangedSubviews: [emailContainerView, nameContainerView, usernameContainerView, passwordContainerView, registerButton])
         stackView.axis = .vertical
         stackView.spacing = 14
         stackView.distribution = .fillEqually

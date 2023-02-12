@@ -7,30 +7,41 @@
 
 import UIKit
 import FirebaseAuth
+import SDWebImage
+
+protocol ProfileViewProtocol: AnyObject {
+    func signOutProfile()
+}
 
 class ProfileView: UIView {
     
     //MARK: - Properties
+    var user: User? {
+        didSet {
+            configure()
+        }
+    }
+    weak var delegate: ProfileViewProtocol?
     private let gradient = CAGradientLayer()
     
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.layer.borderWidth = 2.5
         return imageView
     }()
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .title3)
-        label.textColor = .white
+        label.textAlignment = .center
         return label
     }()
     
-    private let usernameLabel: UILabel = {
+    private lazy var usernameLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .title3)
-        label.textColor = .white
+        label.textAlignment = .center
         return label
     }()
     
@@ -40,7 +51,9 @@ class ProfileView: UIView {
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.cornerRadius = 10
         button.backgroundColor = UIColor.systemRed
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        button.addTarget(self, action: #selector(handleSignOutButton), for: .touchUpInside)
         return button
     }()
     
@@ -58,7 +71,15 @@ class ProfileView: UIView {
     }
     
     override func layoutSubviews() {
+        super.layoutSubviews()
         gradient.frame = bounds
+    }
+}
+
+//MARK: - Selector
+extension ProfileView {
+    @objc private func handleSignOutButton(_ sender: UIButton) {
+        delegate?.signOutProfile()
     }
 }
 
@@ -83,6 +104,8 @@ extension ProfileView {
     
     private func layout() {
         addSubview(profileImageView)
+        addSubview(stackView)
+        
         NSLayoutConstraint.activate([
             profileImageView.topAnchor.constraint(equalTo: topAnchor, constant: 18),
             profileImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -95,10 +118,20 @@ extension ProfileView {
         ])
     }
     
-    private func fetchUser() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        Service.fetchUser(uid: uid) { user in
-            print(user.userName)
-        }
+    private func attributedTitle(headerTitle: String, title: String) -> NSMutableAttributedString {
+        
+        let attributed = NSMutableAttributedString(string: "\(headerTitle): ", attributes: [.foregroundColor: UIColor.white.withAlphaComponent(0.7), .font: UIFont.systemFont(ofSize: 16, weight: .bold)])
+        
+        attributed.append(NSAttributedString(string: title, attributes: [.foregroundColor: UIColor.white, .font: UIFont.systemFont(ofSize: 20, weight: .heavy)]))
+        
+        return attributed
+    }
+    
+    private func configure() {
+        guard let user = self.user else { return }
+        
+        self.usernameLabel.attributedText = attributedTitle(headerTitle: "Username", title: "\(user.userName)")
+        self.nameLabel.attributedText = attributedTitle(headerTitle: "Name", title: "\(user.name)")
+        self.profileImageView.sd_setImage(with: URL(string: user.profileImageUrl))
     }
 }

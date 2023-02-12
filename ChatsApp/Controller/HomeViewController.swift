@@ -26,6 +26,7 @@ class HomeViewController: UIViewController {
         authenticationStatus ()
         style()
         layout()
+        fetchUser()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,6 +37,13 @@ class HomeViewController: UIViewController {
 
 //MARK: - Helpers
 extension HomeViewController {
+    
+    private func fetchUser() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        Service.fetchUser(uid: uid) { user in
+            self.profileView.user = user
+        }
+    }
     
     private func configureBarItem(text: String, selector: Selector) -> UIButton {
         let button = UIButton(type: .system)
@@ -61,11 +69,12 @@ extension HomeViewController {
             try Auth.auth().signOut()
             authenticationStatus()
         } catch {
+            fatalError("Error")
         }
     }
     
     private func style() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .white
         self.navigationController?.navigationBar.tintColor = .white
         
         messageButton = UIBarButtonItem(customView: configureBarItem(text: "Message", selector: #selector(handleMessageButton)))
@@ -80,6 +89,7 @@ extension HomeViewController {
         profileView.translatesAutoresizingMaskIntoConstraints = false
         profileView.layer.cornerRadius = 20
         profileView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner] // sol üst/alt
+        profileView.delegate = self
         
         // Container
         configureContainer()
@@ -156,5 +166,12 @@ extension HomeViewController: MessageViewControllerProtocol {
     func showChatViewController(_ messageViewController: MessageViewController, user: User) {
         let controller = ChatViewController(user: user)
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
+//MARK: - ProfileViewProtocol
+extension HomeViewController: ProfileViewProtocol {
+    func signOutProfile() {
+        self.signOut()
     }
 }

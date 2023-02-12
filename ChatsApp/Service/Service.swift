@@ -43,7 +43,6 @@ struct Service {
                 }
             })
         }
-        
     }
     
     static func sendMessage(message: String, toUser: User, completion: @escaping(Error?) -> Void) {

@@ -51,8 +51,7 @@ struct AuthenticationService {
                         "userName:": user.userNameText,
                         "profileImageUrl": profileImageUrl,
                         "uuid": userUid,
-                        
-                    ] as [String: Any ]
+                    ] as [String: Any]
                     Firestore.firestore().collection("users").document(userUid).setData(data, completion: completion)
                 }
             }

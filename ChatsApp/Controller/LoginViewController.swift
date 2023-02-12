@@ -75,7 +75,10 @@ class LoginViewController: UIViewController {
 extension LoginViewController {
     
     @objc private func handleLoginButton(_ sender: UIButton) {
-        guard let emailText = emailTextField.text, let passwordText = passwordTextField.text else { return }
+        
+        guard let emailText = emailTextField.text else { return }
+        guard let passwordText = passwordTextField.text else { return }
+        
         showProgressHud(showProgress: true)
         AuthenticationService.login(withEmail: emailText, withPassword: passwordText) { result, error in
             if error != nil {

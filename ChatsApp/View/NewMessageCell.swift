@@ -101,6 +101,7 @@ extension NewMessageCell {
     }
     private func configure() {
         guard let message = self.message else { return }
+        
         let viewModel = NewMessageViewModel(message: message)
         messageTextView.text = message.text
         messsageContainerView.backgroundColor = viewModel.messageBackgroundColor

@@ -8,7 +8,7 @@
 import UIKit
 
 class CustomTextField: UITextField {
-
+    
     init(placeHolder: String) {
         super.init(frame: .zero)
         attributedPlaceholder = NSAttributedString(string: placeHolder, attributes: [.foregroundColor: UIColor.white])
